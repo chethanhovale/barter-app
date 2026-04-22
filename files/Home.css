@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  background: #0d0d1a;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.home { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 6rem 1rem 4rem;
+}
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.hero p { font-size: 1.1rem; color: #94a3b8; margin-bottom: 2rem; }
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+.btn-primary {
+  background: #e94560;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.btn-primary:hover { background: #c73652; }
+
+.btn-secondary {
+  background: transparent;
+  border: 2px solid #e94560;
+  color: #e94560;
+  padding: 0.7rem 1.9rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+.btn-secondary:hover { background: #e94560; color: #fff; }
+
+/* Sections */
+.section { margin-top: 3rem; }
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+.section-title { font-size: 1.5rem; font-weight: 700; color: #fff; margin: 0 0 1.25rem; }
+.see-all { color: #e94560; text-decoration: none; font-size: 0.9rem; }
+
+/* Categories */
+.categories-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.category-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #16213e;
+  border: 1px solid #0f3460;
+  color: #cdd6f4;
+  padding: 0.55rem 1.2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.category-chip:hover { background: #e94560; border-color: #e94560; color: #fff; }
+.chip-icon { font-size: 1.1rem; }
+
+/* Listings grid */
+.listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+/* How it works */
+.how-it-works { background: #16213e; border-radius: 16px; padding: 2.5rem 2rem; }
+.how-it-works .section-title { margin-bottom: 2rem; }
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+.step { text-align: center; }
+.step-icon { font-size: 2.5rem; }
+.step h3 { font-size: 1rem; font-weight: 700; margin: 0.5rem 0 0.3rem; color: #e2e8f0; }
+.step p { font-size: 0.85rem; color: #94a3b8; margin: 0; line-height: 1.5; }
