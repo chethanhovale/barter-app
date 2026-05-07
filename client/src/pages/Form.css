@@ -1,0 +1,87 @@
+/* Form.css — shared by Login, Register, CreateListing */
+.form-page {
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: #0d0d1a;
+}
+
+.form-card {
+  background: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.form-card h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.25rem;
+}
+
+.form-sub {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin: 0 0 1.75rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-bottom: 0.35rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: #0d0d1a;
+  border: 1px solid #0f3460;
+  color: #e2e8f0;
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: #e94560; }
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-submit {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.8rem;
+  background: #e94560;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-submit:hover:not(:disabled) { background: #c73652; }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.error-msg  { color: #f87171; font-size: 0.88rem; margin: 0.25rem 0; }
+.form-footer { text-align: center; margin-top: 1.25rem; font-size: 0.88rem; color: #94a3b8; }
+.form-footer a { color: #e94560; text-decoration: none; }
