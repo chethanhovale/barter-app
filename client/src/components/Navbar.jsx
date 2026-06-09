@@ -33,7 +33,7 @@ export default function Navbar() {
           <div className="navbar__links">
             <Link to="/listings">Marketplace</Link>
             <Link to="/what-can-i-get">What Can I Get?</Link>
-            <Link to="/my-trades">My Trades</Link>
+            <Link to="/trades">My Trades</Link>
             <span style={{ color: 'var(--teal-30)' }}>|</span>
             <span className="navbar__badge">
               <span className="navbar__badge-dot" />
@@ -68,7 +68,7 @@ export default function Navbar() {
                   ? <img src={user.avatar_url} alt={user.username} />
                   : user.username?.slice(0, 2).toUpperCase()}
               </Link>
-              <Link to="/listings/create" className="btn btn-primary btn-sm">+ List Item</Link>
+              <Link to="/listings/new" className="btn btn-primary btn-sm">+ List Item</Link>
               <button onClick={handleLogout} className="btn btn-ghost btn-sm">Sign Out</button>
             </>
           ) : (
