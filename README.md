@@ -144,7 +144,3 @@ PORT=8000
 - LinkedIn: [linkedin.com/in/your-profile](https://linkedin.com/in/chethan5241)
 
 ---
-
-## 📄 License
-
-This project is for portfolio and educational purposes.
