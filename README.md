@@ -1,105 +1,105 @@
 # 🔄 Barter App — AI-Powered Trade Marketplace
 
-> The first barter platform powered by semantic vector search, AI asset valuation, and real-time ETL sync.
+> Full-stack barter platform with semantic search, AI valuation, and real-time trading.
+
+[![Stack](https://img.shields.io/badge/stack-React%20%7C%20Express%20%7C%20FastAPI-blue)]()
+[![LLM](https://img.shields.io/badge/LLM-Claude%20Sonnet-purple)]()
+[![Deploy](https://img.shields.io/badge/deploy-Render-green)]()
 
 ---
 
-## ✨ Features
-
-- Semantic RAG Search — Find listings by meaning, not just keywords. Built with `sentence-transformers` + JSON vector store
-- AI Asset Valuation — Category-aware depreciation engine cross-referenced against live market data
-- Real-Time ETL Sync — Every listing auto-syncs to the vector store on create/update/delete
-- Trade Fairness Estimator — RAG + Claude AI assesses whether a proposed barter is fair
-- Listing Enhancer — Claude improves listing titles and descriptions automatically
-- Real-Time Chat — Socket.io powered messaging between traders
-- JWT Auth — Secure access token + refresh token flow
-
----
-
-## 🏗️ Architecture
+## Architecture
 
 ```
 React :3000  →  Express :5000  →  FastAPI :8000
-                    ↓                  ↓
-               PostgreSQL         VectorStore
-                                 (sentence-transformers)
+                    ↓                   ↓
+               PostgreSQL          VectorStore
+                                (sentence-transformers)
 ```
 
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18, Socket.io-client |
-| Backend | Node.js, Express, Socket.io |
+| Layer | Tech |
+|---|---|
+| Frontend | React 18, React Router v6, Socket.io-client |
+| Backend | Node.js, Express, Socket.io, Zod validation |
 | AI Service | FastAPI, Python 3.12, Uvicorn |
-| Embeddings | sentence-transformers (all-MiniLM-L6-v2) |
-| Vector Store | JSON-based (no C++ required) |
+| Embeddings | sentence-transformers (`all-MiniLM-L6-v2`) |
 | LLM | Anthropic Claude (claude-sonnet-4) |
 | Database | PostgreSQL, asyncpg |
-| Auth | JWT (access + refresh tokens) |
+| Auth | JWT — 15m access token + refresh token |
 | Images | Cloudinary |
+| Deploy | Docker, Render |
 
 ---
 
-## 🚀 Getting Started
+## Features
+
+- **Semantic RAG Search** — find listings by meaning via sentence-transformers + JSON vector store
+- **AI Asset Valuation** — category-aware depreciation engine cross-referenced with market data
+- **Trade Fairness Estimator** — RAG + Claude assesses whether a proposed barter is fair
+- **Listing Enhancer** — Claude auto-improves listing titles and descriptions
+- **Real-Time ETL Sync** — listings auto-sync to vector store on create/update/delete
+- **Real-Time Chat** — Socket.io messaging between traders
+- **JWT Auth** — access + refresh token flow with server-side logout invalidation
+
+---
+
+## AI Service Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/search?q=...` | Semantic listing search |
+| POST | `/trades/valuate` | Asset valuation |
+| POST | `/listings/enhance` | AI listing improver |
+| POST | `/trades/estimate` | Trade fairness check |
+| POST | `/ingest` | Bulk ETL sync to vector store |
+| GET | `/health` | Health check |
+
+---
+
+## Quick Start
 
 ### Prerequisites
-- Node.js 18+
-- Python 3.12+
-- PostgreSQL
+- Node.js 18+, Python 3.12+, PostgreSQL
 
-### 1. Clone the repo
+### 1. Clone & setup database
 ```bash
 git clone https://github.com/chethanhovale/barter-app.git
 cd barter-app
-```
-
-### 2. Setup the database
-```bash
 psql -U postgres -c "CREATE DATABASE barter_app;"
 psql -U postgres -d barter_app -f database/schema.sql
 ```
 
-### 3. Setup Express server
+### 2. Express server
 ```bash
-cd server
-npm install
-cp .env.example .env   # fill in your values
+cd server && npm install
+cp .env.example .env   # fill in values
 npm run dev
 ```
 
-### 4. Setup React client
+### 3. React client
 ```bash
-cd client
-npm install
-npm start
+cd client && npm install && npm start
 ```
 
-### 5. Setup AI service
+### 4. AI service
 ```bash
-cd ai_service
-python -m venv venv
-venv\Scripts\activate      # Windows
-# source venv/bin/activate  # Mac/Linux
+cd "ai services"
+python -m venv venv && source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-cp env.example .env        # fill in DATABASE_URL
+cp env.example .env
 uvicorn main:app --reload --port 8000
 ```
 
-### 6. Seed the vector store
+### 5. Seed vector store
 ```bash
-curl -X POST http://localhost:8000/ingest \
-  -H "Content-Type: application/json" \
-  -d '{}'
+curl -X POST http://localhost:8000/ingest -H "Content-Type: application/json" -d '{}'
 ```
 
 ---
 
-## 🔑 Environment Variables
+## Environment Variables
 
-### `server/.env`
+**`server/.env`**
 ```
 PORT=5000
 DATABASE_URL=postgresql://postgres:password@localhost:5432/barter_app
@@ -107,44 +107,36 @@ JWT_SECRET=your_secret_here
 JWT_EXPIRES_IN=15m
 CLIENT_URL=http://localhost:3000
 AI_SERVICE_URL=http://localhost:8000
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_key
-CLOUDINARY_API_SECRET=your_secret
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 ```
 
-### `ai_service/.env`
+**`ai services/.env`**
 ```
 DATABASE_URL=postgresql://postgres:password@localhost:5432/barter_app
-CHROMA_PATH=./chroma_data
 PORT=8000
-# Optional — works without (mock mode)
-# ANTHROPIC_API_KEY=sk-ant-...
+ANTHROPIC_API_KEY=sk-ant-...   # optional — omit for mock mode
 ```
 
 ---
 
-## 📡 AI Service Endpoints
+## Deploy
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/search?q=...` | Semantic listing search |
-| POST | `/trades/valuate` | Asset valuation engine |
-| POST | `/listings/enhance` | AI listing improver |
-| POST | `/trades/estimate` | Trade fairness check |
-| POST | `/ingest` | Bulk ETL sync |
-| GET | `/health` | Service health check |
+Docker and Render config are included at the repo root.
 
----
+```bash
+docker build -t barter-app .
+docker run -p 5000:5000 barter-app
+```
 
-## 👨‍💻 Developer
-
-**Chethan Hovale** — Full-Stack AI Engineer, Bangalore, India
-
-- GitHub: [github.com/your-username](https://github.com/chethanhovale)
-- LinkedIn: [linkedin.com/in/your-profile](https://linkedin.com/in/chethan5241)
+For Render: push to `master` — `render.yaml` handles service definitions automatically.
 
 ---
 
-## 📄 License
+## Developer
 
-This project is for portfolio and educational purposes.
+**Chethan Hovale** — Full-Stack AI Engineer, Bangalore
+
+- GitHub: [github.com/chethanhovale](https://github.com/chethanhovale)
+- LinkedIn: [linkedin.com/in/chethan5241](https://linkedin.com/in/chethan5241)
